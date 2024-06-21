@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:watercat/bloc/blochistory/historypagecubit.dart';
-import 'package:watercat/bloc/blochistory/historystate.dart';
-import 'package:watercat/screens/lineChart.dart';
 
-import 'package:watercat/screens/small_widget_helpers/screenlayout.dart';
-
+import '../bloc/blochistory/historypagecubit.dart';
+import '../bloc/blochistory/historystate.dart';
 import '../broardcastwschannel.dart';
 import '../models/events.dart';
+import 'linechart.dart';
+import 'small_widget_helpers/screenlayout.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
