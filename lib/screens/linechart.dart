@@ -71,7 +71,6 @@ class HistoryChart extends StatelessWidget {
           (xValue + reading.timestamp.minute.toDouble() / 60 / 10)
               .toStringAsFixed(3));
       flSpots.add(FlSpot(point, double.parse((reading.value).toStringAsFixed(2))));
-      //print("Point: " + point.toString() + " val: " + reading.value.toString());
     }
 
     return flSpots;

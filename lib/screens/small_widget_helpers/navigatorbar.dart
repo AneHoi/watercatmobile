@@ -17,8 +17,7 @@ var menu = <MenuItem>[
   MenuItem(name: "Home", screen: HomeScreen.new, icon: Icons.home),
   MenuItem(
       name: "History", screen: HistoryScreen.new, icon: Icons.calendar_month),
-  MenuItem(name: "User", screen: UserScreen.new, icon: Icons.person),
-  MenuItem(name: "log", screen: LoginScreen.new, icon: Icons.login)
+  MenuItem(name: "User", screen: UserScreen.new, icon: Icons.person)
 ];
 
 class BottomNavigationbar extends StatelessWidget {
@@ -66,4 +65,10 @@ class BottomNavigationbar extends StatelessWidget {
       ),
     );
   }
+}
+
+goToPage(BuildContext context, Widget Function({Key? key}) constructor) {
+  Navigator.of(context).pushReplacement(
+    MaterialPageRoute(builder: (context) => constructor.call()),
+  );
 }

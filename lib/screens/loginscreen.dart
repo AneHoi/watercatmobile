@@ -9,6 +9,7 @@ import 'package:watercat/screens/small_widget_helpers/screenlayout.dart';
 import '../broardcastwschannel.dart';
 import 'registetionscreen.dart';
 import 'small_widget_helpers/backgroundgradient.dart';
+import 'small_widget_helpers/navigatorbar.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -107,18 +108,11 @@ class UserContent extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () async {
-              print("Enter 1");
-              await context.read<LoginCubit>().loginUser("anehoimark@gmail.com", "Qwerty!234");
-              //await context.read<LoginCubit>().loginUser(emailController.text, passwordController.text);
-              print("entered");
+              await context.read<LoginCubit>().loginUser(emailController.text, passwordController.text);
               if(await context.read<LoginCubit>().isUserAuthenticated()){
-                print("going to homepage");
-                _goToHomePage(context, HomeScreen.new);
-              }else{
-                print("not going to homepage");
-
+                goToPage(context, HomeScreen.new);
               }
-            },
+              },
             style: ElevatedButton.styleFrom(
               shape: const StadiumBorder(),
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -135,7 +129,7 @@ class UserContent extends StatelessWidget {
             padding: EdgeInsets.only(left: 30, right: 30),
             child: ElevatedButton(
               onPressed: () async {
-                _goToHomePage(context, RegistrationScreen.new);
+                goToPage(context, RegistrationScreen.new);
               },
               style: ElevatedButton.styleFrom(
                 shape: const StadiumBorder(),
@@ -154,9 +148,3 @@ class UserContent extends StatelessWidget {
   }
 }
 
-
-_goToHomePage(BuildContext context, Widget Function({Key? key}) constructor) {
-  Navigator.of(context).pushReplacement(
-    MaterialPageRoute(builder: (context) => constructor.call()),
-  );
-}

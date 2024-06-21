@@ -28,10 +28,6 @@ class HistoryState {
         List<Reading>? temperatureReadings,
         List<Reading>? onTimeReadings
       }) {
-    print("firts temp: ");
-    print(temperatureReadings?.first.value.toString());
-    print("first on time: ");
-    print(onTimeReadings?.first.value.toString());
     return HistoryState(
         temperatureReadings: temperatureReadings ?? this.temperatureReadings,
         onTimeReadings: onTimeReadings ?? this.onTimeReadings

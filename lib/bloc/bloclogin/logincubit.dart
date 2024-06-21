@@ -21,7 +21,6 @@ class LoginCubit extends Cubit<LoginState>{
       String password,
       String username,
       ) async {
-    print("registration");
     final event = ClientEvent.clientWantsToRegister(deviceId: deviceId, deviceName: deviceName, email: email, password: password, username: username);
     final serverEventFuture = channel.stream
         .map((event) => ServerEvent.fromJson(jsonDecode(event)))
@@ -31,7 +30,6 @@ class LoginCubit extends Cubit<LoginState>{
     final serverEvent = await serverEventFuture.timeout(Duration(seconds: 5));
 
     if(serverEvent is ServerAuthenticatesUser){
-      print("recieved auth");
     }
 
   }
@@ -52,7 +50,6 @@ class LoginCubit extends Cubit<LoginState>{
 
     final serverEvent = await serverEventFuture.timeout(Duration(seconds: 5));
     if (serverEvent is ServerAuthenticatesUser) {
-      print("so far so good");
       emit(state.copyWith(loggedIn: true));
     }
     else{

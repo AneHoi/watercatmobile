@@ -30,6 +30,7 @@ class HomeContent extends StatefulWidget {
 class _HomeContent extends State<HomeContent> {
   bool ison = true;
   String fountainName = "";
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -40,9 +41,7 @@ class _HomeContent extends State<HomeContent> {
           fountainName = state.fountainName;
         }, builder: (context, state) {
           return getCenterBox(buildHomepageContent(context, state), ison);
-        }
-        )
-    );
+        }));
   }
 
   Column buildHomepageContent(BuildContext context, HomepageState state) {
@@ -50,7 +49,9 @@ class _HomeContent extends State<HomeContent> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          child: Text(fountainName, style: TextStyle(fontSize: 30, color: ison ? Colors.black : Colors.white)),
+          child: Text(fountainName,
+              style: TextStyle(
+                  fontSize: 30, color: ison ? Colors.black : Colors.white)),
         ),
         Container(
             constraints: BoxConstraints(minWidth: 50, maxWidth: 300),
@@ -65,7 +66,7 @@ class _HomeContent extends State<HomeContent> {
 
           inactiveThumbColor: const Color.fromRGBO(0, 0, 0, 1.0),
           onChanged: (bool value) async {
-            await context.read<HomepageCubit>().turnOnWaterFountain(10);
+            await context.read<HomepageCubit>().turnOnWaterFountain();
             ison = value;
           },
         ),
@@ -75,11 +76,20 @@ class _HomeContent extends State<HomeContent> {
             Row(
               children: [
                 Icon(Icons.access_time),
-                Text(getStateText(state), style: TextStyle(color: ison ? Colors.black : Colors.white),),
+                Text(
+                  getStateText(state),
+                  style: TextStyle(color: ison ? Colors.black : Colors.white),
+                ),
               ],
             ),
             Row(
-              children: [Icon(Icons.thermostat), Text(getTempStateText(state), style: TextStyle(color: ison ? Colors.black : Colors.white),)],
+              children: [
+                Icon(Icons.thermostat),
+                Text(
+                  getTempStateText(state),
+                  style: TextStyle(color: ison ? Colors.black : Colors.white),
+                )
+              ],
             )
           ],
         )

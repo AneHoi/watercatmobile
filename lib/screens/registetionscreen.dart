@@ -7,6 +7,7 @@ import 'package:watercat/screens/loginscreen.dart';
 import 'package:watercat/screens/small_widget_helpers/screenlayout.dart';
 
 import '../broardcastwschannel.dart';
+import 'homescreen.dart';
 import 'small_widget_helpers/backgroundgradient.dart';
 import 'small_widget_helpers/navigatorbar.dart';
 
@@ -71,7 +72,18 @@ class UserContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          buildTextField("Fountain Id", deviceIdController, borderData),
+          TextField(
+            controller: deviceIdController,
+            decoration: InputDecoration(
+              hintText: "Fountain Id",
+              border: borderData,
+              focusedBorder: borderData,
+              enabledBorder: borderData,
+              fillColor: Colors.blue.withOpacity(0.2),
+              filled: true,
+            ),
+            keyboardType: TextInputType.number,
+          ),
           const SizedBox(height: 10),
 
           buildTextField("Fountain name", deviceNameController, borderData),
@@ -106,9 +118,11 @@ Recommendations are:
           ElevatedButton(
             onPressed: () async {
               int id = int.parse(deviceIdController.text);
-              print("id: " + id.toString());
 
               await context.read<LoginCubit>().registerUser(id, deviceNameController.text, emailController.text, passwordController.text, usernameController.text);
+              if(await context.read<LoginCubit>().isUserAuthenticated()){
+                goToPage(context, HomeScreen.new);
+              }
             },
             style: ElevatedButton.styleFrom(
               shape: const StadiumBorder(),
@@ -127,7 +141,7 @@ Recommendations are:
             padding: EdgeInsets.only(left: 30, right: 30),
             child: ElevatedButton(
               onPressed: () async {
-                _onMenuTap(context, LoginScreen.new);
+                goToPage(context, LoginScreen.new);
               },
               style: ElevatedButton.styleFrom(
                 shape: const StadiumBorder(),
@@ -140,7 +154,6 @@ Recommendations are:
               ),
             ),
           ),
-          BottomNavigationbar()
         ],
       ),
     );
@@ -159,11 +172,4 @@ Recommendations are:
           ),
         );
   }
-}
-
-
-_onMenuTap(BuildContext context, Widget Function({Key? key}) constructor) {
-  Navigator.of(context).pushReplacement(
-    MaterialPageRoute(builder: (context) => constructor.call()),
-  );
 }

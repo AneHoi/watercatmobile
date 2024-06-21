@@ -4,9 +4,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:watercat/bloc/blochomepage/homepagestate.dart';
-import 'package:watercat/broardcastwschannel.dart';
-import 'package:watercat/models/events.dart';
+
+import '../../broardcastwschannel.dart';
+import '../../models/events.dart';
+import 'homepagestate.dart';
 
 
 class HomepageCubit extends Cubit<HomepageState>{
@@ -35,9 +36,13 @@ class HomepageCubit extends Cubit<HomepageState>{
     });
   }
 
-  turnOnWaterFountain(int minutesOn) async{
+  changeRequestedOnTime(int minutesOn){
+    emit(state.copyWith(requestedOnTime: minutesOn));
+  }
+
+  turnOnWaterFountain() async{
     final event = ClientEvent.clientWantsToTurnOnFountain(
-        requestTime: minutesOn
+        requestTime: state.requestedOnTime
     );
 
     final serverEventFuture = channel.stream
